@@ -3,20 +3,20 @@ using TriparcApplication.Repositories;
 
 namespace TriparcApplication.Services;
 
-public class TripsService
+public class TripsService : ITripsService
 {
-    private readonly TripsRepository tripsRepository;
+    private readonly ITripsRepository _tripsRepository;
 
-    public TripsService(TripsRepository tripsRepository)
+    public TripsService(ITripsRepository tripsRepository)
     {
-        this.tripsRepository = tripsRepository;
+        _tripsRepository = tripsRepository;
     }
 
     public async Task<List<Trip>> GetTripAsync() =>
-        await tripsRepository.GetAsync();
+        await _tripsRepository.GetAsync();
 
     public async Task<Trip?> GetTripAsync(string id) =>
-        await tripsRepository.GetAsync(id);
+        await _tripsRepository.GetAsync(id);
 
     public async Task<Trip> CreateTripAsync(TripRequest request)
     {
@@ -25,7 +25,7 @@ public class TripsService
             var trip = request.ToTrip();
             trip.TotalCost = CalculateTripTotalCost(trip.Activities);
 
-            await tripsRepository.CreateAsync(trip);
+            await _tripsRepository.CreateAsync(trip);
             return trip;
         }
         catch (Exception e)

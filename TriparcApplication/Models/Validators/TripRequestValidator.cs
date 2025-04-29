@@ -10,8 +10,9 @@ public class TripRequestValidator : AbstractValidator<TripRequest>
         // If we need to lookup whether UserId is valid, convert to async validator
         RuleFor(request => request.UserId)
             .NotEmpty()
+            .WithMessage("DestinationId is required.")
             .Matches(RegexConstants.AlphaNumeric)
-            .WithMessage("UserId is required.");
+            .WithMessage("DestinationId may only contain letters, numbers, and underscores.");
 
         RuleFor(request => request.Title)
             .NotEmpty()

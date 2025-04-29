@@ -2,7 +2,13 @@
 
 ## Getting started
 
-To make testing easier, a Postman collection has been provided [here](https://github.com).
+To make testing easier, a Postman collection has been provided [here](Postman) with successful and failed responses. Get endpoints have been provided to help with testing the application.
+
+1. Clone the TriparcApplication repo
+2. Make sure Mongo is running on port 27017
+3. Run TriparcApplication
+4. Send the `POST Create Experience` request in Postman
+5. `id` will auto-populate in `GET Trip`
 
 ## Design callouts
 
@@ -13,8 +19,6 @@ To make testing easier, a Postman collection has been provided [here](https://gi
 * Injecting dependencies, makes testing easier and reduces each class' overhead.
 
 * DTO for requests, not for response because it maps one-to-one with the domain model. We could add a DTO for response if the situation required (e.g. sensitive data had to be stored on Trips that we don't want to expose).
-
-* Simple data models and classes. Since this project focuses on a specific piece of functionality and making the code simple, I decided against implementing interfaces or adding layers of abstraction. 
 
 * Middleware for error handling and logging. Likewise, I would set up dedicated middleware for HTTP response codes and logging in a more extensive program.
 
@@ -53,3 +57,7 @@ For larger-scale applications or future iterations, it would be worth going with
 * Activities list can be empty, in which case total cost will be 0.
 
 * Error handling added for the POST flow.
+
+* Users may have multiple trips happening during overlapping intervals.
+
+* Because costs are represented by decimal, I'm going to limit decimal places to two.

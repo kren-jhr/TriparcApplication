@@ -5,9 +5,9 @@ using TriparcApplication.Configuration;
 
 namespace TriparcApplication.Repositories;
 
-public class TripsRepository
+public class TripsRepository : ITripsRepository
 {
-    private readonly IMongoCollection<Trip> tripCollection;
+    private readonly IMongoCollection<Trip> _tripCollection;
 
     public TripsRepository(IOptions<MongoDbSettings> mongoDbSettings)
     {
@@ -17,21 +17,21 @@ public class TripsRepository
         var mongoDatabase = mongoClient.GetDatabase(
             mongoDbSettings.Value.DatabaseName);
 
-        tripCollection = mongoDatabase.GetCollection<Trip>(
+        _tripCollection = mongoDatabase.GetCollection<Trip>(
             mongoDbSettings.Value.TripsCollectionName);
     }
 
     public async Task<List<Trip>> GetAsync() =>
-        await tripCollection.Find(_ => true).ToListAsync();
+        await _tripCollection.Find(_ => true).ToListAsync();
 
     public async Task<Trip?> GetAsync(string id) =>
-        await tripCollection.Find(x => x.TripId == id).FirstOrDefaultAsync();
+        await _tripCollection.Find(x => x.TripId == id).FirstOrDefaultAsync();
 
     public async Task CreateAsync(Trip trip) 
     {
         try
         {
-            await tripCollection.InsertOneAsync(trip);
+            await _tripCollection.InsertOneAsync(trip);
         }
         catch (MongoWriteException e)
         {

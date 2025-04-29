@@ -13,8 +13,8 @@ public class TripRequest
     {
         return new Trip
         {
-            UserId = UserId,
-            Title = Title,
+            UserId = UserId.Trim(),
+            Title = Title.Trim(),
             StartDate = StartDate,
             EndDate = EndDate,
             Activities = Activities

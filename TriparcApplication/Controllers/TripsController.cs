@@ -11,10 +11,10 @@ namespace TriparcApplication.Controllers;
 [Route("api/[controller]")]
 public class TripsController : ControllerBase
 {
-    private readonly TripsService _tripsService;
+    private readonly ITripsService _tripsService;
     private readonly IValidator<TripRequest> _tripRequestValidator;
 
-    public TripsController(TripsService tripsService, IValidator<TripRequest> tripRequestValidator)
+    public TripsController(ITripsService tripsService, IValidator<TripRequest> tripRequestValidator)
     {
         _tripsService = tripsService;
         _tripRequestValidator = tripRequestValidator;

@@ -9,9 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDbSettings>(
     builder.Configuration.GetSection("TriparcDatabase"));
 
-builder.Services.AddSingleton<TripsService>();
-builder.Services.AddSingleton<TripsRepository>();
-
+builder.Services.AddScoped<ITripsService, TripsService>();
+builder.Services.AddScoped<ITripsRepository, TripsRepository>();
 builder.Services.AddScoped<IValidator<TripRequest>, TripRequestValidator>();
 builder.Services.AddScoped<IValidator<Activity>, ActivityValidator>();
 
