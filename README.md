@@ -18,6 +18,8 @@ To make testing easier, a Postman collection has been provided [here](https://gi
 
 * Middleware for error handling and logging. Likewise, I would set up dedicated middleware for HTTP response codes and logging in a more extensive program.
 
+* If this were a complete project, I would set up dedicated secrets management to connect with external services and databases rather than connecting via an open connection string.
+
 ### Database choice
 
 I chose MongoDB as the project database for the following reasons (most to least important):
@@ -43,6 +45,8 @@ For larger-scale applications or future iterations, it would be worth going with
 ## Assumptions
 
 * All foreign ids and objects (i.e. ActivityId, UserId, DestinationId) are valid and exist somewhere
+
+* Secrets management is out of scope.
 
 * Keeping authorization out of scope, so no token validation or checking whether userId has the right permissions.
 

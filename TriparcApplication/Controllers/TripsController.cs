@@ -21,26 +21,57 @@ public class TripsController : ControllerBase
     }
         
     [HttpGet]
-    public async Task<List<Trip>> Get() 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> Get() 
     {
-        return await _tripsService.GetTripAsync();
+        try
+        {
+            var trips = await _tripsService.GetTripAsync();
+
+            return Ok(trips);
+        }
+        catch (Exception e)
+        {
+            return Problem(
+                title: "An error occurred while getting trips.",
+                statusCode: (int)HttpStatusCode.InternalServerError,
+                detail: e.Message
+            );
+        }   
     }
         
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Trip>> Get(string id)
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    [ProducesResponseType(500)]
+    public async Task<IActionResult> Get(string id)
     {
-        var trip = await _tripsService.GetTripAsync(id);
-
-        if (trip is null)
+        try
         {
-            return NotFound();
-        }
+            var trip = await _tripsService.GetTripAsync(id);
 
-        return trip;
+            if (trip is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(trip);
+        }
+        catch (Exception e)
+        {
+            return Problem(
+                title: $"An error occurred while getting Trip {id}.",
+                statusCode: (int)HttpStatusCode.InternalServerError,
+                detail: e.Message
+            );
+        }   
     }
 
     [HttpPost]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(500)]
     public async Task<IActionResult> CreateTrip(TripRequest request)
     {
         ValidationResult result = _tripRequestValidator.Validate(request);

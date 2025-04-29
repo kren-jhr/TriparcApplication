@@ -1,4 +1,5 @@
 using FluentValidation;
+using TriparcApplication.Utils;
 
 namespace TriparcApplication.Models;
 
@@ -9,11 +10,13 @@ public class ActivityValidator : AbstractValidator<Activity>
         // Convert to async validator if we need to lookup whether ActivityId is valid
         RuleFor(activity => activity.ActivityId)
             .NotEmpty()
+            .Matches(RegexConstants.AlphaNumeric)
             .WithMessage("ActivityId is required.");
 
         // Convert to async validator if we need to lookup whether DestinationId is valid
         RuleFor(activity => activity.DestinationId)
             .NotEmpty()
+            .Matches(RegexConstants.AlphaNumeric)
             .WithMessage("DestinationId is required.");
 
         RuleFor(activity => activity.Duration)

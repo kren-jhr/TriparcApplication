@@ -1,4 +1,5 @@
 using FluentValidation;
+using TriparcApplication.Utils;
 
 namespace TriparcApplication.Models;
 
@@ -9,6 +10,7 @@ public class TripRequestValidator : AbstractValidator<TripRequest>
         // If we need to lookup whether UserId is valid, convert to async validator
         RuleFor(request => request.UserId)
             .NotEmpty()
+            .Matches(RegexConstants.AlphaNumeric)
             .WithMessage("UserId is required.");
 
         RuleFor(request => request.Title)
