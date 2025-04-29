@@ -20,11 +20,20 @@ public class TripsService
 
     public async Task<Trip> CreateTripAsync(TripRequest request)
     {
-        var trip = request.ToTrip();
-        trip.TotalCost = CalculateTripTotalCost(trip.Activities);
+        try
+        {
+            var trip = request.ToTrip();
+            trip.TotalCost = CalculateTripTotalCost(trip.Activities);
 
-        await tripsRepository.CreateAsync(trip);
-        return trip;
+            await tripsRepository.CreateAsync(trip);
+            return trip;
+        }
+        catch (Exception e)
+        {
+            // Log exception
+            throw new Exception("An error occurred while creating the trip.", e);
+        }
+        
     }
 
     // TotalCost is sum of all Activity costs

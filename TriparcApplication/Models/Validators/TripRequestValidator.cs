@@ -6,6 +6,7 @@ public class TripRequestValidator : AbstractValidator<TripRequest>
 {
     public TripRequestValidator()
     {
+        // If we need to lookup whether UserId is valid, convert to async validator
         RuleFor(request => request.UserId)
             .NotEmpty()
             .WithMessage("UserId is required.");

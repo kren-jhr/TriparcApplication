@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+using System.Net;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +21,11 @@ public class TripsController : ControllerBase
     }
         
     [HttpGet]
-    public async Task<List<Trip>> Get() =>
-        await _tripsService.GetTripAsync();
+    public async Task<List<Trip>> Get() 
+    {
+        return await _tripsService.GetTripAsync();
+    }
+        
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Trip>> Get(string id)
@@ -47,8 +50,19 @@ public class TripsController : ControllerBase
             return BadRequest(new { errors = result.Errors.Select(e => e.ErrorMessage) });
         }
 
-        var trip = await _tripsService.CreateTripAsync(request);
+        try
+        {
+            var trip = await _tripsService.CreateTripAsync(request);
 
-        return CreatedAtAction(nameof(Get), new { id = trip.TripId }, trip);
+            return CreatedAtAction(nameof(Get), new { id = trip.TripId }, trip);
+        }
+        catch (Exception e)
+        {
+            return Problem(
+                title: "An error occurred while attempting to create the trip.",
+                statusCode: (int)HttpStatusCode.InternalServerError,
+                detail: e.Message
+            );
+        }        
     }
 }

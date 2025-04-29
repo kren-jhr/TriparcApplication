@@ -6,10 +6,12 @@ public class ActivityValidator : AbstractValidator<Activity>
 {
     public ActivityValidator()
     {
+        // Convert to async validator if we need to lookup whether ActivityId is valid
         RuleFor(activity => activity.ActivityId)
             .NotEmpty()
             .WithMessage("ActivityId is required.");
 
+        // Convert to async validator if we need to lookup whether DestinationId is valid
         RuleFor(activity => activity.DestinationId)
             .NotEmpty()
             .WithMessage("DestinationId is required.");
