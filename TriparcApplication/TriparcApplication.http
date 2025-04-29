@@ -1,4 +1,4 @@
-@TriparcApplication_HostAddress = http://localhost:5198
+@TriparcApplication_HostAddress = http://localhost:5277
 
 GET {{TriparcApplication_HostAddress}}/weatherforecast/
 Accept: application/json

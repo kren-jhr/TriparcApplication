@@ -1,0 +1,181 @@
+{
+	"info": {
+		"_postman_id": "0387129a-ba1f-44ea-989a-642804202c92",
+		"name": "TripApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44518756",
+		"_collection_link": "https://kr-1936147.postman.co/workspace/KR's-Workspace~64fc0efa-5196-4adc-85bc-5e3af96146fe/collection/44518756-0387129a-ba1f-44ea-989a-642804202c92?action=share&source=collection_link&creator=44518756"
+	},
+	"item": [
+		{
+			"name": "Trips",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5277/api/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trip",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5277/api/trips/{{id}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Experience",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(pm.response.text());",
+							"pm.environment.set(\"id\", jsonData.TripId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"user1\",\n    \"Title\": \"user1's Germany Trip\",\n    \"StartDate\": \"2025-04-01T00:00:00Z\",\n    \"EndDate\": \"2025-04-10T00:00:00Z\",\n    \"Activities\": [\n        {\n            \"ActivityId\": \"activity1\",\n            \"DestinationId\": \"destination1\",\n            \"Duration\": 100000,\n            \"Cost\": 100343\n        },\n        {\n            \"ActivityId\": \"activity2\",\n            \"DestinationId\": \"destination1\",\n            \"Duration\": 100000,\n            \"Cost\": 200\n        },\n        {\n            \"ActivityId\": \"activity3\",\n            \"DestinationId\": \"destination2\",\n            \"Duration\": 100000,\n            \"Cost\": 300\n        },\n        {\n            \"ActivityId\": \"activity4\",\n            \"DestinationId\": \"destination2\",\n            \"Duration\": 100000,\n            \"Cost\": 400\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5277/api/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Experience - Trip Validation Errors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"user2\",\n    \"Title\": \"user2's Germany Trip\",\n    \"StartDate\": \"2025-04-01T00:00:00Z\",\n    \"EndDate\": \"2025-03-01T00:00:00Z\",\n    \"Activities\": [\n        {\n            \"ActivityId\": \"activity1\",\n            \"DestinationId\": \"destination1\",\n            \"Duration\": 100000,\n            \"Cost\": 100\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5277/api/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Experience - Activities Validation Errors",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"user2\",\n    \"Title\": \"user2's Germany Trip\",\n    \"StartDate\": \"2025-04-01T00:00:00Z\",\n    \"EndDate\": \"2025-04-10T00:00:00Z\",\n    \"Activities\": [\n        {\n            \"ActivityId\": \"\",\n            \"DestinationId\": \"      \",\n            \"Duration\": -10,\n            \"Cost\": -10\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5277/api/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Experience - Empty Activities",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"UserId\": \"user3\",\n    \"Title\": \"user3's Italy Trip\",\n    \"StartDate\": \"2025-04-01T00:00:00Z\",\n    \"EndDate\": \"2025-04-10T00:00:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5277/api/trips",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5277",
+					"path": [
+						"api",
+						"trips"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
