@@ -1,4 +1,6 @@
+using FluentValidation;
 using TriparcApplication.Configuration;
+using TriparcApplication.Models;
 using TriparcApplication.Repositories;
 using TriparcApplication.Services;
 
@@ -9,6 +11,9 @@ builder.Services.Configure<MongoDbSettings>(
 
 builder.Services.AddSingleton<TripsService>();
 builder.Services.AddSingleton<TripsRepository>();
+
+builder.Services.AddScoped<IValidator<TripRequest>, TripRequestValidator>();
+builder.Services.AddScoped<IValidator<Activity>, ActivityValidator>();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

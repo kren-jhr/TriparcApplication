@@ -27,6 +27,7 @@ public class TripsService
         return trip;
     }
 
+    // TotalCost is sum of all Activity costs
     private decimal CalculateTripTotalCost(List<Activity> activities) =>
         activities.Select(a => a.Cost).Sum();
 }
