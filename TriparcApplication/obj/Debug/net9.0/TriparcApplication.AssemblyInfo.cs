@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TriparcApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0b14ba235ab77c199f2e78dc33dea1baee99f87")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+01e9c65318079cf6b111eebb97d90f1297223159")]
 [assembly: System.Reflection.AssemblyProductAttribute("TriparcApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TriparcApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
